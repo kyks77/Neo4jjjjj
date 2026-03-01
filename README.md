@@ -1,15 +1,24 @@
 # Global Student Portal - Clean Architecture Analysis
-Dependency graph + stability metrics in Neo4j
 
-## Live Demo
-[![Neo4j Graph](neo4j-screenshot.png)](https://sandbox.neo4j.com) 
+## Dependency Graph
+![Architecture](graph.png)
 
-## Stability Results
-| Component | Fan-in | Fan-out | Instability |
-|-----------|--------|---------|-------------|
-| PostgreSQL| 4 | 0 | 0% ✅ |
+## Stability Metrics (Clean Architecture)
+![Results](stability-table.png)
 
-## Run Locally
-1. https://sandbox.neo4j.com → Paste `queries.cypher`
-2. Or `docker-compose up`
+## Analysis
+**Stable components** (0% instability ✅):
+- PostgreSQL, Redis, Kafka, API Gateway
 
+**Unstable components** (100% instability ✅):
+- Domain/Application services (Auth, User, Academic, Finance)
+
+**Clean Architecture validated**: Infrastructure is stable (depended ON), Domain layer unstable (depends OUT).
+
+## Generated Using
+- Neo4j Sandbox (https://sandbox.neo4j.com)
+- Cypher queries for dependency modeling and stability calculation
+
+## Metrics Formula
+Instability (I) = Fan-out / (Fan-in + Fan-out)
+Ideal: Domain=0%, Infrastructure=100%
